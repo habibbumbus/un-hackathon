@@ -186,3 +186,5 @@ Frontend Dev	Build React UI (pages, routing, forms)
 Backend Dev	Flask/FastAPI API endpoints + queue logic
 Data/API Integrator	Google Maps integration, mock data setup
 Pitch/Design	Record demo, design logo, make 1–3 min video
+
+Daniel
