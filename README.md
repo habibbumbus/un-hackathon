@@ -187,5 +187,54 @@ Backend Dev	Flask/FastAPI API endpoints + queue logic
 Data/API Integrator	Google Maps integration, mock data setup
 Pitch/Design	Record demo, design logo, make 1–3 min video
 
-Daniel Jonathan
+
+
+                         ┌────────────────────────────────────────────┐
+                         │                FRONTEND (React)             │
+                         │────────────────────────────────────────────│
+                         │ - Login/Register page                       │
+                         │ - Map + Clinic Search page                  │
+                         │ - Symptom Input / Triage chatbot interface  │
+                         │ - Queue Position Dashboard                  │
+                         │ - Notification pop-ups                      │
+                         │ - Post-Visit Summary Page                   │
+                         └──────────────┬──────────────────────────────┘
+                                        │   REST API Calls (Axios)
+                                        ▼
+┌────────────────────────────────────────────────────────────────────────────┐
+│                  BACKEND (FastAPI / Flask Server)                          │
+│────────────────────────────────────────────────────────────────────────────│
+│   Endpoints:                                                               │
+│   /register          → Create user                                         │
+│   /clinics/nearby    → Return mock clinic list + estimated waits           │
+│   /triage            → Rule-based AI symptom classification                │
+│   /book              → Add user to queue                                   │
+│   /cancel            → Cancel booking + trigger offer chain                │
+│   /notify-next       → Offer slot to next user (SMS/email mock)            │
+│   /report            → Generate PDF + send email summary                   │
+│                                                                            │
+│   Services:                                                                │
+│   - Notification Manager (Twilio mock / console)                           │
+│   - Queue Manager (Priority & Offer Logic)                                 │
+│   - PDF Generator (ReportLab)                                              │
+│   - Location/Clinic Data Manager (Google Maps API or static JSON)          │
+│                                                                            │
+└──────────────┬─────────────────────────────────────────────────────────────┘
+               │
+               │ Database ORM (SQLAlchemy)
+               ▼
+┌────────────────────────────────────────────────────────────────────────────┐
+│                    DATABASE (SQLite for MVP)                               │
+│────────────────────────────────────────────────────────────────────────────│
+│  Tables:                                                                   │
+│   - Users (id, name, contact, id_type, urgency_level)                      │
+│   - Clinics (id, name, location, current_wait, queue JSON)                 │
+│   - Appointments (id, user_id, clinic_id, status, position)                │
+└────────────────────────────────────────────────────────────────────────────┘
+
+Optional external services:
+  • Twilio API → SMS notifications  
+  • SendGrid → Email confirmations  
+  • Google Maps API → Geolocation and clinic mapping
+
 
